@@ -70,6 +70,22 @@ public class MyLinkedList<K>
 			this.tail = myNode;
 		}
 	}
+
+	/**
+	 * Inserts a Node between two Nodes.
+	 * @param Node after which new Node needs to be added.
+	 * @param Node that needs to be added.
+	 */
+	public void addAfter(Node<K> myFirstNode, Node<K> myThirdNode) 
+	{
+		if (myFirstNode == null)
+			throw new NodeNotFoundException("First node after which you want to add a node was not found");
+		if(myFirstNode.getNext() == null)
+			throw new NodeNotFoundException("Two nodes not available to inset new a Node in between");
+		Node<K> tempNode = myFirstNode.getNext();
+		myFirstNode.setNext(myThirdNode);
+		myThirdNode.setNext(tempNode);
+	}
 	
 	/**
 	 * When called upon MyLinkedList type, prints all the Node types available in it.
