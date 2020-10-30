@@ -67,7 +67,7 @@ public class MyLinkedListTest {
 	}
 	
 	@Test(expected = NodeNotFoundException.class)
-	public void doingInsertbetweenNodes_WhenEndNodesNotFound_ShouldThrowNodeNotFoundException() 
+	public void InsertingbetweenNodes_WhenEndNodesNotFound_ShouldThrowNodeNotFoundException() 
 	{
 		MyNode<Integer> myFirstNode = new MyNode<>(56);
 		MyNode<Integer> myThirdNode = new MyNode<>(30);
@@ -168,5 +168,24 @@ public class MyLinkedListTest {
 		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
 		myLinkedList.addBottom(null);
 		myLinkedList.findNodeWithKey(null);
+	}
+	
+	@Test
+	public void given4Numbers_WhenAddingLastNumber_ShouldBeAddedAfterSecondNumber() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(56);
+		MyNode<Integer> mySecondNode = new MyNode<>(30);
+		MyNode<Integer> myThirdNode = new MyNode<>(70);
+		MyNode<Integer> myNewNode = new MyNode<Integer>(40);
+		
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.addBottom(myFirstNode);
+		myLinkedList.addBottom(mySecondNode);
+		myLinkedList.addBottom(myThirdNode);
+		myLinkedList.addAfter(mySecondNode, myNewNode);
+		
+		boolean result = myLinkedList.getHead().getNext().getNext().equals(myNewNode);
+
+		Assert.assertTrue(result);
 	}
 }
