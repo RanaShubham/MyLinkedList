@@ -87,7 +87,6 @@ public class MyLinkedList<K>
 		myThirdNode.setNext(tempNode);
 	}
 	
-	
 	/**
 	 * When calling popHead() on Node type linked list, the head of the list will be assigned to the Node next to head Node.
 	 */
@@ -96,6 +95,24 @@ public class MyLinkedList<K>
 		if(this.head == null)
 			throw new NodeNotFoundException("No head node available to pop");
 		this.head = this.getHead().getNext();
+	}
+	
+	/**
+	 * When calling cutTail() on Node type linked list, the tail of the list will be assigned to the Node next to tail Node.
+	 */
+	public void cutTail() 
+	{
+		if(this.tail == null)
+			throw new NodeNotFoundException("No tail node available to cut");
+		
+		Node<K> secondLastNode = this.head;
+		
+		while (secondLastNode.getNext() != this.tail) 
+		{
+			secondLastNode = secondLastNode.getNext();
+		}
+		secondLastNode.setNext(null);
+		this.tail = secondLastNode;
 	}
 	
 	/**

@@ -80,7 +80,7 @@ public class MyLinkedListTest {
 	}
 	
 	@Test
-	public void givenNodeList_WhenCallPopMethod_ShouldBeAbleToDeleteFirstNode() 
+	public void givenNodeList_WhenCalledPopHeadMethod_ShouldBeAbleToRemoveFirstNode() 
 	{
 		MyNode<Integer> myFirstNode = new MyNode<>(56);
 		MyNode<Integer> mySecondNode = new MyNode<>(30);
@@ -100,13 +100,35 @@ public class MyLinkedListTest {
 	}
 	
 	@Test(expected = NodeNotFoundException.class)
-	public void givenEmptyNodeList_ShouldThrowNodeNotFoundException() 
-	{
-		MyNode<Integer> myNode = new MyNode<>(56);
-		
+	public void givenEmptyNodeListToPopHead_ShouldThrowNodeNotFoundException() 
+	{		
 		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
 		myLinkedList.addBottom(null);
-		myLinkedList.addBottom(myNode);
 		myLinkedList.popHead();
+	}
+	
+	@Test
+	public void givenNodeList_WhenCalledCutTailMethod_ShouldBeAbleToRemoveLastNode() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(56);
+		MyNode<Integer> mySecondNode = new MyNode<>(30);
+		MyNode<Integer> myThirdNode = new MyNode<>(70);
+		
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.addBottom(myFirstNode);
+		myLinkedList.addBottom(mySecondNode);
+		myLinkedList.addBottom(myThirdNode);
+		myLinkedList.cutTail();
+		
+		boolean result = myLinkedList.getTail().equals(mySecondNode);
+		Assert.assertTrue(result);
+	}
+	
+	@Test(expected = NodeNotFoundException.class)
+	public void givenEmptyNodeListToCutTail_ShouldThrowNodeNotFoundException() 
+	{		
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.addBottom(null);
+		myLinkedList.cutTail();
 	}
 }
