@@ -1,9 +1,9 @@
 package com.bridgelabz.mylinkedlistjava;
 
-public class MyLinkedList
+public class MyLinkedList<K>
 {
-	private Node head;
-	private Node tail;
+	private Node<K> head;
+	private Node<K> tail;
 	
 	public MyLinkedList()
 	{
@@ -14,7 +14,7 @@ public class MyLinkedList
 	/**
 	 * @return head Node of this Node.
 	 */
-	public Node getHead() 
+	public Node<K> getHead() 
 	{
 		return this.head;
 	}
@@ -22,17 +22,17 @@ public class MyLinkedList
 	/**
 	 * @return tail Node of this Node
 	 */
-	public Node getTail() 
+	public Node<K> getTail() 
 	{
 		return this.tail;
 	}
 	
 	/**
-	 * Adds the Node object to MyLinkedList. When first node is added, its tail and head refer to null.
-	 * By changing where the tail and head refer to, we can add more Node types to MyLinkedList.
+	 * Adds the Node object to MyLinkedList at the top. When first node is added, its tail and head refer to null.
+	 * Subsequent addition of Node types is done on top.
 	 * @param myNode
 	 */
-	public void addTop(Node myNode)
+	public void addTop(Node<K> myNode)
 	{
 		if (this.tail == null) 
 		{
@@ -44,9 +44,30 @@ public class MyLinkedList
 		}
 		else
 		{
-			Node tempNode = this.head;
+			Node<K> tempNode = this.head;
 			this.head = myNode;
 			this.head.setNext(tempNode);
+		}
+	}
+	
+	/**Adds the node to MyLinkedList at the bottom. When first node is added, its tail and head refer to null.
+	 * Subsequent additions of nodes is done at bottom.
+	 * @param myNode
+	 */
+	public void addBottom(Node<K> myNode)
+	{
+		if (this.tail == null) 
+		{
+			this.tail = myNode;
+		}
+		if (this.head == null)
+		{
+			this.head = myNode;
+		}
+		else
+		{
+			this.tail.setNext(myNode);
+			this.tail = myNode;
 		}
 	}
 	
@@ -56,7 +77,7 @@ public class MyLinkedList
 	public void printMyLinkedNodes() 
 	{
 		StringBuffer myNodes = new StringBuffer("My Nodes: ");
-		Node tempNode = head;
+		Node<K> tempNode = head;
 		
 		while(tempNode.getNext() != null)
 		{
