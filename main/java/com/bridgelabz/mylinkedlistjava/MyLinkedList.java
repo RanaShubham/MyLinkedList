@@ -115,6 +115,30 @@ public class MyLinkedList<K>
 		this.tail = secondLastNode;
 	}
 	
+	/**Call on a Node list object to get a Node with specified key
+	 * @param key
+	 * @return Node with given key
+	 */
+	public Node<K> findNodeWithKey(K key)
+	{
+		Node<K> nodeWithKey = this.head;
+		
+		if (this.head == null)
+			throw new NodeNotFoundException("No nodes available");
+		try 
+		{
+			while (nodeWithKey.getKey() != key)
+			{
+				nodeWithKey = nodeWithKey.getNext();
+			}
+		return nodeWithKey;
+		
+		} catch (NullPointerException e) 
+		{
+			return nodeWithKey;
+		}
+	}
+	
 	/**
 	 * When called upon MyLinkedList type, prints all the Node types available in it.
 	 */

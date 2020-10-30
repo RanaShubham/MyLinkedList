@@ -24,7 +24,7 @@ public class MyLinkedListTest {
 		boolean result = myLinkedList.getHead().equals(myThirdNode) &&
 						 myLinkedList.getHead().getNext().equals(mySecondNode) &&
 						 myLinkedList.getTail().equals(myFirstNode);	
-		myLinkedList.printMyLinkedNodes();
+
 		Assert.assertTrue(result);
 	}
 	
@@ -43,7 +43,7 @@ public class MyLinkedListTest {
 		boolean result = myLinkedList.getHead().equals(myFirstNode) &&
 						 myLinkedList.getHead().getNext().equals(mySecondNode) &&
 						 myLinkedList.getTail().equals(myThirdNode);
-		myLinkedList.printMyLinkedNodes();
+
 		Assert.assertTrue(result);
 	}
 	
@@ -62,7 +62,7 @@ public class MyLinkedListTest {
 		boolean result = myLinkedList.getHead().equals(myFirstNode) &&
 						 myLinkedList.getHead().getNext().equals(myThirdNode) &&
 						 myLinkedList.getTail().equals(mySecondNode);
-		myLinkedList.printMyLinkedNodes();
+
 		Assert.assertTrue(result);
 	}
 	
@@ -92,9 +92,7 @@ public class MyLinkedListTest {
 		myLinkedList.addBottom(myThirdNode);
 		
 		myLinkedList.popHead();
-		
-		myLinkedList.printMyLinkedNodes();
-		
+				
 		boolean result = myLinkedList.getHead().equals(mySecondNode);
 		Assert.assertTrue(result);
 	}
@@ -130,5 +128,45 @@ public class MyLinkedListTest {
 		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
 		myLinkedList.addBottom(null);
 		myLinkedList.cutTail();
+	}
+	
+	@Test
+	public void givenAKey__ShouldBeAbleToFindNodeWithThatkey() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(56);
+		MyNode<Integer> mySecondNode = new MyNode<>(30);
+		MyNode<Integer> myThirdNode = new MyNode<>(70);
+		
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.addBottom(myFirstNode);
+		myLinkedList.addBottom(mySecondNode);
+		myLinkedList.addBottom(myThirdNode);
+		
+		boolean result = myLinkedList.findNodeWithKey(30).equals(mySecondNode);
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void givenNullKey__ShouldBeAbleToFindNodeWithNullkey() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(56);
+		MyNode<Integer> mySecondNode = new MyNode<>(30);
+		MyNode<Integer> myThirdNode = new MyNode<>(null);
+		
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.addBottom(myFirstNode);
+		myLinkedList.addBottom(mySecondNode);
+		myLinkedList.addBottom(myThirdNode);
+		
+		boolean result = myLinkedList.findNodeWithKey(null).equals(myThirdNode);
+		Assert.assertTrue(result);
+	}
+	
+	@Test(expected = NodeNotFoundException.class)
+	public void givenEmptyNodeListToFindNodeWithAKey_ShouldThrowNodeNotFoundException() 
+	{		
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.addBottom(null);
+		myLinkedList.findNodeWithKey(null);
 	}
 }
