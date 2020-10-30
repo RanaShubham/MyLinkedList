@@ -87,6 +87,17 @@ public class MyLinkedList<K>
 		myThirdNode.setNext(tempNode);
 	}
 	
+	
+	/**
+	 * When calling popHead() on Node type linked list, the head of the list will be assigned to the Node next to head Node.
+	 */
+	public void popHead() 
+	{
+		if(this.head == null)
+			throw new NodeNotFoundException("No head node available to pop");
+		this.head = this.getHead().getNext();
+	}
+	
 	/**
 	 * When called upon MyLinkedList type, prints all the Node types available in it.
 	 */

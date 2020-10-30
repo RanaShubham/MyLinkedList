@@ -78,4 +78,35 @@ public class MyLinkedListTest {
 		myLinkedList.addAfter(myFirstNode, myThirdNode);
 		
 	}
+	
+	@Test
+	public void givenNodeList_WhenCallPopMethod_ShouldBeAbleToDeleteFirstNode() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(56);
+		MyNode<Integer> mySecondNode = new MyNode<>(30);
+		MyNode<Integer> myThirdNode = new MyNode<>(70);
+		
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.addBottom(myFirstNode);
+		myLinkedList.addBottom(mySecondNode);
+		myLinkedList.addBottom(myThirdNode);
+		
+		myLinkedList.popHead();
+		
+		myLinkedList.printMyLinkedNodes();
+		
+		boolean result = myLinkedList.getHead().equals(mySecondNode);
+		Assert.assertTrue(result);
+	}
+	
+	@Test(expected = NodeNotFoundException.class)
+	public void givenEmptyNodeList_ShouldThrowNodeNotFoundException() 
+	{
+		MyNode<Integer> myNode = new MyNode<>(56);
+		
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.addBottom(null);
+		myLinkedList.addBottom(myNode);
+		myLinkedList.popHead();
+	}
 }
