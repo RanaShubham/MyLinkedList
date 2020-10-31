@@ -136,35 +136,36 @@ public class MyLinkedList<K>
 	
 	/**Deletes a node in Node list with given key.
 	 * @param key
-	 * @return 
-	 * @return MyLinkedList
+	 * @return Just to exit the method prematurely
 	 */
 	public int removeNodeWithKey(K key)
 	{
-		Node<K> tempNode = this.head.getNext();
 		Node<K> nodeToRemove = this.findNodeWithKey(key);
-		MyLinkedList<K> nodeList = new MyLinkedList<>();
 
-		if (this.head.equals(nodeToRemove))
+		if (this.head == nodeToRemove)
 		{
 			this.popHead();
 			return 1;
 		}
-		if (this.tail.equals(nodeToRemove))
+		if (this.tail == nodeToRemove)
 		{
 			this.cutTail();
 			return 1;
 		}
+		Node<K> previous = this.head;
+		Node<K> nextNode = head.getNext().getNext();
 		
-		while(true)
+		while(nextNode.getNext() != null)
 		{
-			if(!tempNode.equals(nodeToRemove))
-				nodeList.addBottom(tempNode);
-			if (tempNode == this.tail)
-				break;
-			tempNode = tempNode.getNext();
+			 if(previous.getKey().equals(key))
+			 {
+				 break;
+			 }
+			 previous = previous.getNext();
+			 nextNode = nextNode.getNext();
 		}
-		this.head.setNext(nodeList.head);
+		
+		previous.setNext(nextNode);
 		return 1;
 	}
 	

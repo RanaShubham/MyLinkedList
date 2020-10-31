@@ -6,6 +6,7 @@ import org.junit.Test;
 import com.bridgelabz.mylinkedlistjava.MyLinkedList;
 import com.bridgelabz.mylinkedlistjava.MyNode;
 import com.bridgelabz.mylinkedlistjava.NodeNotFoundException;
+import com.bridgelabz.mylinkedlistjava.SortedLinkedList;
 
 public class MyLinkedListTest {
 
@@ -181,7 +182,7 @@ public class MyLinkedListTest {
 	}
 	
 	@Test
-	public void given4Nodes_WhenAddingnewNode_ShouldBeAddedAfterSecondNumber() 
+	public void given4Nodes_WhenAddingNewNode_ShouldBeAddedAfterSecondNumber() 
 	{
 		MyNode<Integer> myFirstNode = new MyNode<>(56);
 		MyNode<Integer> mySecondNode = new MyNode<>(30);
@@ -213,14 +214,33 @@ public class MyLinkedListTest {
 		myLinkedList.addBottom(myThirdNode);
 		myLinkedList.addBottom(myFourthNode);
 		
+		myLinkedList.printMyLinkedNodes();
 		myLinkedList.removeNodeWithKey(40);
+		myLinkedList.printMyLinkedNodes();
 		
 		boolean result = myLinkedList.getHead().getNext().getNext().getKey().equals(70);
 		Assert.assertTrue(result);
 	}
 	
+	@Test(expected = NodeNotFoundException.class)
+	public void givenFourNodes_WhenRemovingANodeWithKeyThatIsNotPresentinList_ShouldThrowNodeNotFoundException() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(56);
+		MyNode<Integer> mySecondNode = new MyNode<>(30);
+		MyNode<Integer> myThirdNode = new MyNode<>(40);
+		MyNode<Integer> myFourthNode = new MyNode<>(70);
+
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.addBottom(myFirstNode);
+		myLinkedList.addBottom(mySecondNode);
+		myLinkedList.addBottom(myThirdNode);
+		myLinkedList.addBottom(myFourthNode);
+
+		myLinkedList.removeNodeWithKey(10);
+	}
+	
 	@Test
-	public void given4Nodes_ShouldRemoveNodeWithKey_whenGivenNullKey() 
+	public void givenFourNodes_shouldRemoveFirstNodeWithNull_WhenGivenNullKeyToRemoveNode() 
 	{
 		MyNode<Integer> myFirstNode = new MyNode<>(56);
 		MyNode<Integer> mySecondNode = new MyNode<>(null);
@@ -233,13 +253,11 @@ public class MyLinkedListTest {
 		myLinkedList.addBottom(myThirdNode);
 		myLinkedList.addBottom(myFourthNode);
 		
-		System.out.println("Size "+myLinkedList.size());
 		myLinkedList.printMyLinkedNodes();
 		myLinkedList.removeNodeWithKey(null);
-		System.out.println("Size "+myLinkedList.size());
 		myLinkedList.printMyLinkedNodes();
 		
-		boolean result = myLinkedList.getHead().getNext().getKey().equals(40);
+		boolean result = myLinkedList.getHead().getNext().getNext().getKey().equals(70);
 		Assert.assertTrue(result);
-	}
+	}	
 }
