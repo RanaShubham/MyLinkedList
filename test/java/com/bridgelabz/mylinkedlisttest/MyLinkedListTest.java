@@ -48,7 +48,7 @@ public class MyLinkedListTest {
 	}
 	
 	@Test
-	public void given3Numbers_WhenAddingLastNumber_ShouldBeAddedBetweenFirstAndSecondNumber() 
+	public void given3Nodes_WhenAddingLastNumber_ShouldBeAddedBetweenFirstAndSecondNumber() 
 	{
 		MyNode<Integer> myFirstNode = new MyNode<>(56);
 		MyNode<Integer> mySecondNode = new MyNode<>(70);
@@ -147,7 +147,7 @@ public class MyLinkedListTest {
 	}
 	
 	@Test
-	public void givenNullKey__ShouldBeAbleToFindNodeWithNullkey() 
+	public void givenNullKeyToFindNode__ShouldBeAbleToFindNodeWithNullkey() 
 	{
 		MyNode<Integer> myFirstNode = new MyNode<>(56);
 		MyNode<Integer> mySecondNode = new MyNode<>(30);
@@ -159,19 +159,29 @@ public class MyLinkedListTest {
 		myLinkedList.addBottom(myThirdNode);
 		
 		boolean result = myLinkedList.findNodeWithKey(null).equals(myThirdNode);
+
 		Assert.assertTrue(result);
 	}
 	
-	@Test(expected = NodeNotFoundException.class)
-	public void givenEmptyNodeListToFindNodeWithAKey_ShouldThrowNodeNotFoundException() 
-	{		
+	@Test (expected = NodeNotFoundException.class)
+	public void givenKeyToFindNode__ifNotPresentinNodeList_ShouldThrowNodeNotFoundException() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(56);
+		MyNode<Integer> mySecondNode = new MyNode<>(30);
+		MyNode<Integer> myThirdNode = new MyNode<>(70);
+		
 		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
-		myLinkedList.addBottom(null);
-		myLinkedList.findNodeWithKey(null);
+		myLinkedList.addBottom(myFirstNode);
+		myLinkedList.addBottom(mySecondNode);
+		myLinkedList.addBottom(myThirdNode);
+		
+		boolean result = myLinkedList.findNodeWithKey(90).equals(myThirdNode);
+
+		Assert.assertTrue(result);
 	}
 	
 	@Test
-	public void given4Numbers_WhenAddingLastNumber_ShouldBeAddedAfterSecondNumber() 
+	public void given4Nodes_WhenAddingnewNode_ShouldBeAddedAfterSecondNumber() 
 	{
 		MyNode<Integer> myFirstNode = new MyNode<>(56);
 		MyNode<Integer> mySecondNode = new MyNode<>(30);
@@ -186,6 +196,50 @@ public class MyLinkedListTest {
 		
 		boolean result = myLinkedList.getHead().getNext().getNext().equals(myNewNode);
 
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void given4Nodes_shouldRemoveOneNodeWithAnyGivenKey() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(56);
+		MyNode<Integer> mySecondNode = new MyNode<>(30);
+		MyNode<Integer> myThirdNode = new MyNode<>(40);
+		MyNode<Integer> myFourthNode = new MyNode<>(70);
+
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.addBottom(myFirstNode);
+		myLinkedList.addBottom(mySecondNode);
+		myLinkedList.addBottom(myThirdNode);
+		myLinkedList.addBottom(myFourthNode);
+		
+		myLinkedList.removeNodeWithKey(40);
+		
+		boolean result = myLinkedList.getHead().getNext().getNext().getKey().equals(70);
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void given4Nodes_ShouldRemoveNodeWithKey_whenGivenNullKey() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(56);
+		MyNode<Integer> mySecondNode = new MyNode<>(null);
+		MyNode<Integer> myThirdNode = new MyNode<>(40);
+		MyNode<Integer> myFourthNode = new MyNode<>(70);
+
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.addBottom(myFirstNode);
+		myLinkedList.addBottom(mySecondNode);
+		myLinkedList.addBottom(myThirdNode);
+		myLinkedList.addBottom(myFourthNode);
+		
+		System.out.println("Size "+myLinkedList.size());
+		myLinkedList.printMyLinkedNodes();
+		myLinkedList.removeNodeWithKey(null);
+		System.out.println("Size "+myLinkedList.size());
+		myLinkedList.printMyLinkedNodes();
+		
+		boolean result = myLinkedList.getHead().getNext().getKey().equals(40);
 		Assert.assertTrue(result);
 	}
 }

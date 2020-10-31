@@ -122,21 +122,73 @@ public class MyLinkedList<K>
 	public Node<K> findNodeWithKey(K key)
 	{
 		Node<K> nodeWithKey = this.head;
-		
-		if (this.head == null)
-			throw new NodeNotFoundException("No nodes available");
-		try 
+		while(true)
 		{
-			while (nodeWithKey.getKey() != key)
-			{
-				nodeWithKey = nodeWithKey.getNext();
-			}
-		return nodeWithKey;
-		
-		} catch (NullPointerException e) 
-		{
-			return nodeWithKey;
+			if ( key != null && nodeWithKey.getKey().equals(key))
+				return nodeWithKey;
+			if (nodeWithKey.getKey() == null && key == null)
+				return nodeWithKey;
+			if( nodeWithKey == this.tail)
+				throw new NodeNotFoundException("No such Node found");
+			nodeWithKey = nodeWithKey.getNext();
 		}
+	}
+	
+	/**Deletes a node in Node list with given key.
+	 * @param key
+	 * @return 
+	 * @return MyLinkedList
+	 */
+	public int removeNodeWithKey(K key)
+	{
+		Node<K> tempNode = this.head.getNext();
+		Node<K> nodeToRemove = this.findNodeWithKey(key);
+		MyLinkedList<K> nodeList = new MyLinkedList<>();
+
+		if (this.head.equals(nodeToRemove))
+		{
+			this.popHead();
+			return 1;
+		}
+		if (this.tail.equals(nodeToRemove))
+		{
+			this.cutTail();
+			return 1;
+		}
+		
+		while(true)
+		{
+			if(!tempNode.equals(nodeToRemove))
+				nodeList.addBottom(tempNode);
+			if (tempNode == this.tail)
+				break;
+			tempNode = tempNode.getNext();
+		}
+		this.head.setNext(nodeList.head);
+		return 1;
+	}
+	
+	/**
+	 * @return Size of Node List.
+	 */
+	public int size()
+	{
+		Node <K> tempNode = this.head;
+		int size = 0;
+		while(true)
+		{
+			if(tempNode == null)
+				return 0;
+			size = size + 1;
+			
+			tempNode = tempNode.getNext();
+			if(tempNode.equals(this.tail))
+			{
+				size = size+1;
+				break;
+			}
+		}
+		return size;
 	}
 	
 	/**
@@ -145,7 +197,7 @@ public class MyLinkedList<K>
 	public void printMyLinkedNodes() 
 	{
 		StringBuffer myNodes = new StringBuffer("My Nodes: ");
-		Node<K> tempNode = head;
+		Node<K> tempNode = this.head;
 		
 		while(tempNode.getNext() != null)
 		{
