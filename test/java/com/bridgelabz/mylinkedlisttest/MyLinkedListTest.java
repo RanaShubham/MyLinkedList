@@ -8,7 +8,8 @@ import com.bridgelabz.mylinkedlistjava.MyNode;
 import com.bridgelabz.mylinkedlistjava.NodeNotFoundException;
 import com.bridgelabz.mylinkedlistjava.SortedLinkedList;
 
-public class MyLinkedListTest {
+public class MyLinkedListTest 
+{
 
 	@Test
 	public void given3Numbers_WhenAdded_ShouldBeAddedToTop() 
@@ -214,9 +215,7 @@ public class MyLinkedListTest {
 		myLinkedList.addBottom(myThirdNode);
 		myLinkedList.addBottom(myFourthNode);
 		
-		myLinkedList.printMyLinkedNodes();
 		myLinkedList.removeNodeWithKey(40);
-		myLinkedList.printMyLinkedNodes();
 		
 		boolean result = myLinkedList.getHead().getNext().getNext().getKey().equals(70);
 		Assert.assertTrue(result);
@@ -253,11 +252,70 @@ public class MyLinkedListTest {
 		myLinkedList.addBottom(myThirdNode);
 		myLinkedList.addBottom(myFourthNode);
 		
-		myLinkedList.printMyLinkedNodes();
 		myLinkedList.removeNodeWithKey(null);
-		myLinkedList.printMyLinkedNodes();
 		
 		boolean result = myLinkedList.getHead().getNext().getNext().getKey().equals(70);
 		Assert.assertTrue(result);
-	}	
+	}
+	
+	@Test
+	public void givenFourNodes_shouldInsertNodesInAscendingOrder() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(56);
+		MyNode<Integer> mySecondNode = new MyNode<>(30);
+		MyNode<Integer> myThirdNode = new MyNode<>(40);
+		MyNode<Integer> myFourthNode = new MyNode<>(70);
+
+		SortedLinkedList<Integer> myLinkedList = new SortedLinkedList<Integer>();
+		myLinkedList.sortInsert(myFirstNode);
+		myLinkedList.sortInsert(mySecondNode);
+		myLinkedList.sortInsert(myThirdNode);
+		myLinkedList.sortInsert(myFourthNode);
+
+		myLinkedList.printMyLinkedNodes();
+		
+		boolean result = myLinkedList.getHead().getKey().equals(30) &&
+						myLinkedList.getHead().getNext().getKey().equals(40) &&
+						myLinkedList.getHead().getNext().getNext().getKey().equals(56) &&
+						myLinkedList.getTail().getKey().equals(70);
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void givenFourNodesInDescendingOrder_shouldInsertNodesInAscendingOrder() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(9);
+		MyNode<Integer> mySecondNode = new MyNode<>(8);
+		MyNode<Integer> myThirdNode = new MyNode<>(7);
+		MyNode<Integer> myFourthNode = new MyNode<>(6);
+
+		SortedLinkedList<Integer> myLinkedList = new SortedLinkedList<Integer>();
+		myLinkedList.sortInsert(myFirstNode);
+		myLinkedList.sortInsert(mySecondNode);
+		myLinkedList.sortInsert(myThirdNode);
+		myLinkedList.sortInsert(myFourthNode);
+
+		myLinkedList.printMyLinkedNodes();
+		
+		boolean result = myLinkedList.getHead().getKey().equals(6) &&
+						myLinkedList.getHead().getNext().getKey().equals(7) &&
+						myLinkedList.getHead().getNext().getNext().getKey().equals(8) &&
+						myLinkedList.getTail().getKey().equals(9);
+		Assert.assertTrue(result);
+	}
+	
+	@Test(expected = NodeNotFoundException.class)
+	public void givenFourNodes_WhenOneOfThemHasNullKEy_ShouldThrowNodeNotFoundException() 
+	{
+		MyNode<Integer> myFirstNode = new MyNode<>(56);
+		MyNode<Integer> mySecondNode = new MyNode<>(30);
+		MyNode<Integer> myThirdNode = new MyNode<>(40);
+		MyNode<Integer> myFourthNode = new MyNode<>(null);
+
+		SortedLinkedList<Integer> myLinkedList = new SortedLinkedList<Integer>();
+		myLinkedList.sortInsert(myFirstNode);
+		myLinkedList.sortInsert(mySecondNode);
+		myLinkedList.sortInsert(myThirdNode);
+		myLinkedList.sortInsert(myFourthNode);
+	}
 }

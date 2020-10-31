@@ -34,12 +34,9 @@ public class MyLinkedList<K>
 	 */
 	public void addTop(Node<K> myNode)
 	{
-		if (this.tail == null) 
+		if (this.tail == null && this.head == null) 
 		{
 			this.tail = myNode;
-		}
-		if (this.head == null)
-		{
 			this.head = myNode;
 		}
 		else
@@ -56,12 +53,9 @@ public class MyLinkedList<K>
 	 */
 	public void addBottom(Node<K> myNode)
 	{
-		if (this.tail == null) 
+		if (this.tail == null && this.head == null) 
 		{
 			this.tail = myNode;
-		}
-		if (this.head == null)
-		{
 			this.head = myNode;
 		}
 		else
@@ -172,22 +166,17 @@ public class MyLinkedList<K>
 	/**
 	 * @return Size of Node List.
 	 */
-	public int size()
+	public int sizeOfNodeList()
 	{
+		if(this.head == null && this.tail == null)
+			throw new NodeNotFoundException("Node list is empty");
+		
 		Node <K> tempNode = this.head;
-		int size = 0;
-		while(true)
+		int size = 1;
+		while(tempNode.getNext() != null)
 		{
-			if(tempNode == null)
-				return 0;
 			size = size + 1;
-			
 			tempNode = tempNode.getNext();
-			if(tempNode.equals(this.tail))
-			{
-				size = size+1;
-				break;
-			}
 		}
 		return size;
 	}
